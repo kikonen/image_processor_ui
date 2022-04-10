@@ -1,0 +1,17 @@
+%table.table.table-striped.table-hover
+  %thead
+    %tr
+      %th= "ID"
+      %th= "URL"
+      %th= "Status"
+      %th= "MIME type"
+      %th= "Uploaded at"
+
+  %tbody
+    - images.each do |image|
+      %tr
+        %th= image.id
+        %th= image.url
+        %th= image.status
+        %th= image.mime_type
+        %th= image.created_at

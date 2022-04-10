@@ -1,0 +1,11 @@
+%table.table.table-striped.table-hover
+  %thead
+    %tr
+      %th= "ID"
+      %th= "Uploaded at"
+
+  %tbody
+    - uploads.each do |upload|
+      %tr
+        %th= link_to(upload.id, upload_path(upload.id))
+        %th= upload.created_at

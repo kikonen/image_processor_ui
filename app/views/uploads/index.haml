@@ -1,0 +1,7 @@
+%h1= "Uploads"
+
+- if @uploads.present?
+  = render partial: 'uploads_table', locals: { uploads: @uploads }
+- else
+  .alert.alert-secondary{ role: :alert }
+    No uploads

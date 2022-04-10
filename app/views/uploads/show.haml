@@ -1,0 +1,9 @@
+= link_to("« back to uploads", uploads_path)
+
+%h1= "Upload: #{@upload.id}"
+
+- if @upload.images.present?
+  = render partial: 'images_table', locals: { images: @upload.images }
+- else
+  .alert.alert-secondary{ role: :alert }
+    No uploaded images
