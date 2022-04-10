@@ -70,6 +70,7 @@ end
 gem 'jwt'
 gem 'oj'
 gem 'curb'
+gem 'hamlit'
 
 group :development, :test do
   gem 'amazing_print'
