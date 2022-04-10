@@ -1,3 +1,10 @@
-Hello image
+= link_to("« back to uploads", uploads_path)
 
-= p @image
+%h1= "Image: #{@image.id}"
+
+%h2= "Exif data"
+- if @image.exif_values.present?
+  = render partial: 'exif_values_table', locals: { exif_values: @image.exif_values }
+- else
+  .alert.alert-secondary{ role: :alert }
+    No Exif data

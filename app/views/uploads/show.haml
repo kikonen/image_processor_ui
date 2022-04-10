@@ -2,6 +2,7 @@
 
 %h1= "Upload: #{@upload.id}"
 
+%h2= "Images"
 - if @upload.images.present?
   = render partial: 'images_table', locals: { images: @upload.images }
 - else

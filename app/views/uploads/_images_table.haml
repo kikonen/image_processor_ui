@@ -10,8 +10,8 @@
   %tbody
     - images.each do |image|
       %tr
-        %th= image.id
-        %th= image.url
+        %th= link_to(image.id, image_path(image.id))
+        %th= link_to(image.url, image.url)
         %th= image.status
         %th= image.mime_type
         %th= image.created_at
