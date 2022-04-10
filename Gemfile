@@ -10,7 +10,9 @@ gem "rails", "~> 7.0.2", ">= 7.0.2.3"
 gem "sprockets-rails"
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", "~> 5.0"
+group :development, :test do
+  gem "puma", "~> 5.0"
+end
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
@@ -63,4 +65,11 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
+end
+
+gem 'jwt'
+gem 'oj'
+
+group :development, :test do
+  gem 'amazing_print'
 end
