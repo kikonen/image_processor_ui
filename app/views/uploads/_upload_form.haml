@@ -1,0 +1,10 @@
+= form_with url: upload_images_uploads_path do |form|
+  .container-fluid
+    .row
+      .col-12
+        .form-group
+          = form.label :upload_images, "Upload images (comma or whitespace separated)"
+          = form.text_area :upload_images, rows: 5, class: 'form-control'
+    .row
+      .col-12
+        = form.submit "Upload images", class: 'btn btn-success'

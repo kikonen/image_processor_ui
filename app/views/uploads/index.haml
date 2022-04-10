@@ -1,5 +1,8 @@
 %h1= "Uploads"
 
+= render partial: 'upload_form'
+
+.mt-4
 - if @uploads.present?
   = render partial: 'uploads_table', locals: { uploads: @uploads }
 - else

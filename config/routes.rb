@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   resources :uploads, only: [:index, :show] do
+    collection do
+      post :upload_images
+    end
     member do
       get :fetch_images
     end

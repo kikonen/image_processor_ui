@@ -9,6 +9,28 @@ class UploadsController < ApplicationController
     @upload = fetch_request_upload
   end
 
+  def upload_images
+    image_urls = params[:upload_images]
+                   .gsub(/\s+/m, ' ')
+                   .gsub(/,/m, ' ')
+                   .split(" ")
+    image_urls.delete_if { |v| v.empty? }
+
+    upload_data = {
+      upload: {
+        images: image_urls.map { |url| { url: url } }
+      }
+    }
+
+    api = ApiRequest.new
+    response = api.post(
+      url: "/uploads",
+      token: fetch_request_token,
+      body: upload_data)
+
+    redirect_to uploads_path
+  end
+
   def fetch_images
     @upload = fetch_request_upload
 
@@ -20,6 +42,12 @@ class UploadsController < ApplicationController
     end
 
     head :no_content
+  end
+
+  def protect_against_forgery?
+    # TODO KI temp workaround due to error:
+    # "HTTP Origin header (http://localhost:8121) didn't match request.base_url (http://localhost)"
+    false
   end
 
   private
