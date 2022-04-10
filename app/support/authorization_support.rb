@@ -23,7 +23,10 @@ module AuthorizationSupport
 
   def fetch_request_token
     # TODO KI fake token
-    session[:token] = "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiNWRmMGY0MmQtMDE2NC00M2NlLTg3ZGEtMjQxNzZkNjkzNjdjIiwiZXhwIjoxNjQ5NjY2MzI0fQ.LnOonio1q3P5ZwD954QdchXgjkt71-CTx1sh4f-_lKQ"
+    fake_token = Secret['FAKE_TOKEN']
+    if fake_token.present?
+      session[:token] = fake_token
+    end
     session[:token]
   end
 
