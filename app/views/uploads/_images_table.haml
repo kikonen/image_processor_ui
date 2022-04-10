@@ -6,12 +6,18 @@
       %th= "Status"
       %th= "MIME type"
       %th= "Uploaded at"
+      %th= ""
 
   %tbody
     - images.each do |image|
       %tr
-        %th= link_to(image.id, image_path(image.id))
-        %th= link_to(image.url, image.url)
-        %th= image.status
-        %th= image.mime_type
-        %th= image.created_at
+        %td
+          - if image.fetched?
+            = link_to(image.id, image_path(image.id))
+          - else
+            = image.id
+        %td= link_to(image.url, image.url)
+        %td= image.status
+        %td= image.mime_type
+        %td= image.created_at
+        %td= link_to("Refresh", fetch_image_path(image.id), class: 'btn btn-success', remote: true)

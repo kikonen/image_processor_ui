@@ -70,7 +70,7 @@ class ApiRequest
     url_sep = url.start_with?('/') ? '' : '/'
     request_url = "#{@base_url}#{url_sep}#{url}"
 
-    encoded_body = encode_payload(body, :json)
+    encoded_body = encode_payload(:json, body)
     encoded_query = encode_payload(:query, query)
 
     request_headers = {
@@ -105,11 +105,11 @@ class ApiRequest
         when :get
           curl.http_get
         when :put
-          curl.http_put(encoded_payload)
+          curl.http_put(encoded_body)
         when :delete
           curl.http_delete
         when :post
-          curl.post_body = encoded_payload
+          curl.post_body = encoded_body
           curl.http_post
         end
       }
@@ -122,6 +122,61 @@ class ApiRequest
     end
 
     Util.decode_json(response_body)
+  end
+
+  def raw_request(
+        http_method: :get,
+        url:,
+        query: nil,
+        body: nil,
+        request_mime_type: CONTENT_JSON,
+        accept_mime_type: CONTENT_JSON)
+    encoded_body = encode_payload(:json, body)
+    encoded_query = encode_payload(:query, query)
+
+    request_url = url
+
+    response_status = nil
+    response_body = nil
+    response_mime_type = nil
+    begin
+      curl = Curl::Easy.new
+      curl.url = encoded_query ? "#{request_url}?#{encoded_query}" : request_url
+
+      curl.on_header do |data|
+        if data.start_with?(HEAD_HTTP_RESPONSE)
+          response_status = data.split(' ')[1].to_i
+        elsif data.start_with?(HEADER_CONTENT_TYPE_HTTP2) || data.start_with?(HEADER_CONTENT_TYPE)
+          response_mime_type = data.split(':')[1].split(';')[0].strip
+        end
+        data.size
+      end
+
+      curl_call = ->() {
+        case http_method
+        when :get
+          curl.http_get
+        when :put
+          curl.http_put(encoded_body)
+        when :delete
+          curl.http_delete
+        when :post
+          curl.post_body = encoded_body
+          curl.http_post
+        end
+      }
+
+      Rails.logger.info "#{http_method} #{request_url}"
+
+      curl_call.call
+      response_body = curl.body_str
+      curl.close
+    end
+
+    {
+      mime_type: response_mime_type,
+      content: response_body,
+    }
   end
 
   def encode_payload(request_content_type, data)

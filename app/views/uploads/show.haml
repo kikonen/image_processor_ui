@@ -4,6 +4,8 @@
 
 %h2= "Images"
 - if @upload.images.present?
+  = link_to("Refresh all images", fetch_images_upload_path(@upload.id), class: 'btn btn-success', remote: true)
+
   = render partial: 'images_table', locals: { images: @upload.images }
 - else
   .alert.alert-secondary{ role: :alert }

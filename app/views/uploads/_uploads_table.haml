@@ -7,5 +7,5 @@
   %tbody
     - uploads.each do |upload|
       %tr
-        %th= link_to(upload.id, upload_path(upload.id))
-        %th= upload.created_at
+        %td= link_to(upload.id, upload_path(upload.id))
+        %td= upload.created_at

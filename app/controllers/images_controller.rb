@@ -5,10 +5,22 @@ class ImagesController < ApplicationController
     @image = fetch_request_image
   end
 
+  def fetch
+    @image = fetch_request_image
+
+    api = ApiRequest.new
+    response = api.post(
+      url: "/images/#{@image.id}/fetch",
+      token: fetch_request_token)
+
+    head :no_content
+  end
+
+  private
+
   def fetch_request_image
     image_id = params[:id]
-    request = ApiRequest.new
-    data = request.get(
+    data = ApiRequest.new.get(
       url: "/images/#{image_id}",
       token: fetch_request_token)
 
