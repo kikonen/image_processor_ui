@@ -69,10 +69,10 @@ GEM
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
     amazing_print (1.4.0)
+    bcrypt (3.1.17)
     bindex (0.8.1)
-    bootsnap (1.11.1)
-      msgpack (~> 1.2)
     builder (3.2.4)
+    byebug (11.1.3)
     capybara (3.36.0)
       addressable
       matrix
@@ -83,8 +83,10 @@ GEM
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
     childprocess (4.1.0)
+    coderay (1.1.3)
     concurrent-ruby (1.1.10)
     crass (1.0.6)
+    curb (1.0.0)
     debug (1.5.0)
       irb (>= 1.3.6)
       reline (>= 0.2.7)
@@ -115,7 +117,6 @@ GEM
     mini_mime (1.1.2)
     mini_portile2 (2.8.0)
     minitest (5.15.0)
-    msgpack (1.5.1)
     net-imap (0.2.3)
       digest
       net-protocol
@@ -135,6 +136,14 @@ GEM
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     oj (3.13.11)
+    pry (0.13.1)
+      coderay (~> 1.1)
+      method_source (~> 1.0)
+    pry-byebug (3.9.0)
+      byebug (~> 11.0)
+      pry (~> 0.13.0)
+    pry-rails (0.3.9)
+      pry (>= 0.10.4)
     public_suffix (4.0.6)
     puma (5.6.4)
       nio4r (~> 2.0)
@@ -216,13 +225,16 @@ PLATFORMS
 
 DEPENDENCIES
   amazing_print
-  bootsnap
+  bcrypt (~> 3.1.7)
   capybara
+  curb
   debug
   importmap-rails
   jbuilder
   jwt
   oj
+  pry-byebug
+  pry-rails
   puma (~> 5.0)
   rails (~> 7.0.2, >= 7.0.2.3)
   selenium-webdriver
