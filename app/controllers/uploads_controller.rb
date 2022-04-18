@@ -16,6 +16,11 @@ class UploadsController < ApplicationController
                    .split(" ")
     image_urls.delete_if { |v| v.empty? }
 
+    if image_urls.empty?
+      redirect_to uploads_path
+      return
+    end
+
     upload_data = {
       upload: {
         images: image_urls.map { |url| { url: url } }
