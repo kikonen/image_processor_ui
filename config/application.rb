@@ -18,7 +18,8 @@ require "rails/test_unit/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-require File.expand_path('../../app/lib/thread_log_formatter', __FILE__)
+require_relative '../app/lib/thread_log_formatter'
+require_relative '../app/lib/local_store'
 
 module ImageProcessorUi
   class Application < Rails::Application
@@ -32,5 +33,7 @@ module ImageProcessorUi
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    config.middleware.use LocalStore
   end
 end

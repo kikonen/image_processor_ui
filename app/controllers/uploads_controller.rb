@@ -52,7 +52,8 @@ class UploadsController < ApplicationController
   def protect_against_forgery?
     # TODO KI temp workaround due to error:
     # "HTTP Origin header (http://localhost:8121) didn't match request.base_url (http://localhost)"
-    false
+#    false
+    super
   end
 
   private

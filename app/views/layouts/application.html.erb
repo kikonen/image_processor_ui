@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>ImageProcessorUi</title>
+    <title>Image processor</title>
+
+    <%= favicon_link_tag asset_path('favicon.png') %>
+
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -20,6 +23,7 @@
   </head>
 
   <body>
+    <%= render partial: 'nav/navbar' %>
     <div class="m-4">
       <%= yield %>
     </div>
