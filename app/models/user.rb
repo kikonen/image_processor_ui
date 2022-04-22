@@ -3,7 +3,7 @@
 class User < ApplicationModel
   SYSTEM_ID = '00000000-0000-0000-0000-000000000000'
 
-  attr_accessor :name
+  attr_accessor :email
 
   def initialize(data = {})
     super

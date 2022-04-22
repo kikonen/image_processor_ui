@@ -31,3 +31,7 @@
 
 en:
   hello: "Hello world"
+  action:
+    login: Login
+  title:
+    app: Image processor

@@ -1,5 +1,12 @@
-%nav
-  %strong= "Image"
+.navbar.navbar-expand-lg.navbar-light.bg-light
+  %a{ class: "navbar-brand", href: "/ui" }= t('title.app')
 
-  %a.btn.btn-outline-secondary{ href: '../auth/login?cb=../ui' }
-    Login
+  .collapse.navbar-collapse
+    %ul.navbar-nav.mr-auto
+      %li.nav-item.active
+        %a.btn.btn-outline-secondary{ href: '/auth/login?cb=../ui' }
+          = t('action.login')
+
+    %ul.navbar-nav
+      %li.navbar-text
+        = current_user.email

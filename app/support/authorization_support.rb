@@ -22,12 +22,15 @@ module AuthorizationSupport
   end
 
   def fetch_request_token
-    # TODO KI fake token
-    fake_token = Secret['FAKE_TOKEN']
-    if fake_token.present?
-      session[:token] = fake_token
+    token = session[:token]
+    unless token
+      # TODO KI fake token
+      fake_token = Secret['FAKE_TOKEN']
+      if fake_token.present?
+        token = fake_token
+      end
     end
-    session[:token]
+    token
   end
 
   def current_user
@@ -37,10 +40,11 @@ module AuthorizationSupport
         SYSTEM_USER
       else
         user_id = jwt[:user]
-        data = ApiRequest.new.get(
+        response = ApiRequest.new.get(
           url: "/users/#{user_id}",
           token: fetch_request_token)
-        User.new(data)
+        return unless response.success?
+        User.new(response.content)
       end
     end
   end

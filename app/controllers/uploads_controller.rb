@@ -12,7 +12,6 @@ class UploadsController < ApplicationController
   def upload_images
     image_urls = params[:upload_images]
                    .gsub(/\s+/m, ' ')
-                   .gsub(/,/m, ' ')
                    .split(" ")
     image_urls.delete_if { |v| v.empty? }
 
@@ -60,19 +59,22 @@ class UploadsController < ApplicationController
 
   def fetch_request_uploads
     api = ApiRequest.new
-    uploads_data = api.get(
+    response = api.get(
       url: "/uploads",
       token: fetch_request_token)
-    uploads_data&.map { |data| Upload.new(data) } || []
+    return [] unless response.success?
+    response.content&.map { |data| Upload.new(data) } || []
   end
 
   def fetch_request_upload
     upload_id = params[:id]
     api = ApiRequest.new
 
-    data = api.get(
+    response = api.get(
       url: "/uploads/#{upload_id}",
       token: fetch_request_token)
+    return nil unless response.success?
+    data = response.content
     data[:images] = data[:images]&.map { |img_data| Image.new(img_data) }
     Upload.new(data)
   end

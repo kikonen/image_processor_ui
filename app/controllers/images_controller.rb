@@ -20,10 +20,12 @@ class ImagesController < ApplicationController
 
   def fetch_request_image
     image_id = params[:id]
-    data = ApiRequest.new.get(
+    response = ApiRequest.new.get(
       url: "/images/#{image_id}",
       token: fetch_request_token)
+    return unless response.success?
 
+    data = response.content
     data[:exif_values] = data[:exif_values]&.map { |exif_data| ExifValue.new(exif_data) }
     Image.new(data)
   end
