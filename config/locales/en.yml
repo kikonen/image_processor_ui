@@ -33,5 +33,6 @@ en:
   hello: "Hello world"
   action:
     login: Login
+    login_again: Change account
   title:
     app: Image processor

@@ -5,7 +5,11 @@
     %ul.navbar-nav.mr-auto
       %li.nav-item.active
         %a.btn.btn-outline-secondary{ href: '/auth/login?cb=../ui' }
-          = t('action.login')
+          - if current_user.valid?
+            = t('action.login')
+          - else
+            = t('action.login_again')
+
 
     %ul.navbar-nav
       %li.navbar-text

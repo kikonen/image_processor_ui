@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
 module AuthorizationSupport
-  SYSTEM_USER = User.new(
-    id: User::SYSTEM_ID,
-    email: 'system@local')
-
   def require_authorization
     check_jwt_token
   end
@@ -37,13 +33,13 @@ module AuthorizationSupport
     @current_user ||= begin
       jwt = fetch_request_jwt
       if jwt[:system]
-        SYSTEM_USER
+        User.system_user
       else
         user_id = jwt[:user]
         response = ApiRequest.new.get(
           url: "/users/#{user_id}",
           token: fetch_request_token)
-        return unless response.success?
+        return User.null_user unless response.success?
         User.new(response.content)
       end
     end
