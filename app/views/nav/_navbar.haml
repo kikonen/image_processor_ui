@@ -6,10 +6,9 @@
       %li.nav-item.active
         %a.btn.btn-outline-secondary{ href: '/auth/login?cb=../ui' }
           - if current_user.valid?
-            = t('action.login')
-          - else
             = t('action.login_again')
-
+          - else
+            = t('action.login')
 
     %ul.navbar-nav
       %li.navbar-text

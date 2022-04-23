@@ -3,6 +3,11 @@ require "active_support/core_ext/integer/time"
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+ config.web_console.permissions = [
+    '172.0.0.0/8',
+    '10.0.0.0/8',
+  ]
+
   # https://stackoverflow.com/questions/53878453/upgraded-rails-to-6-getting-blocked-host-error
   config.hosts.clear
 

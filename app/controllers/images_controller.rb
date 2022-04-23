@@ -13,6 +13,12 @@ class ImagesController < ApplicationController
       url: "/images/#{@image.id}/fetch",
       token: fetch_request_token)
 
+    if response.success?
+      flash.now[:notice] = 'Refreshed'
+    else
+      flash.now[:alarm] = 'Refresh failed'
+    end
+
     head :no_content
   end
 

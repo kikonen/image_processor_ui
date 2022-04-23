@@ -1,0 +1,4 @@
+- flash.each do |type, message|
+  - cls = type == 'notice' ? 'alert-info' : 'alert-danger'
+  .alert{ class: cls, role: :alert }
+    = message

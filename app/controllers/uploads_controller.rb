@@ -32,6 +32,12 @@ class UploadsController < ApplicationController
       token: fetch_request_token,
       body: upload_data)
 
+    if response.success?
+      flash[:notice] = 'Uploaded images'
+    else
+      flash[:alarm] = 'Uploading images failed'
+    end
+
     redirect_to uploads_path
   end
 
@@ -39,10 +45,17 @@ class UploadsController < ApplicationController
     @upload = fetch_request_upload
 
     api = ApiRequest.new
+    response = nil
     @upload.images.each do |image|
       response = api.post(
         url: "/images/#{image.id}/fetch",
         token: fetch_request_token)
+    end
+
+    if response&.success?
+      flash.now[:notice] = 'Refreshed'
+    else
+      flash.now[:alarm] = 'Refresh failed'
     end
 
     head :no_content
