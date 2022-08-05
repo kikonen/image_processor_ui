@@ -13,6 +13,7 @@ module AuthorizationSupport
   def fetch_request_jwt
     @request_jwt ||= begin
       jwt_token = fetch_request_token
+      raise JWT::ExpiredSignature unless jwt_token
       Token.parse_token(jwt_token)
     end
   end
